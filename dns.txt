@@ -1,0 +1,26 @@
+$TTL 3D
+@       IN      SOA     land-5.com. root.land-5.com. (
+                        199609206       ; serial, todays date + todays serial #
+                        8H              ; refresh, seconds
+                        2H              ; retry, seconds
+                        4W              ; expire, seconds
+                        1D )            ; minimum, seconds
+                        
+                NS      land-5.com.
+localhost       A       127.0.0.1
+router          A       206.6.177.1
+land-5.com.     A       206.6.177.2
+ns              A       206.6.177.3
+www             A       207.159.141.192
+funn            A       206.6.177.2
+ws-177200       A       206.6.177.200
+ws-177201       A       206.6.177.201
+ws-177202       A       206.6.177.202
+ws-177203       A       206.6.177.203
+ws-177204       A       206.6.177.204
+ws-177205       A       206.6.177.205
+ws-177250       A       206.6.177.250
+ws-177251       A       206.6.177.251
+ws-177252       A       206.6.177.252
+ws-177253       A       206.6.177.253
+ws-177254       A       206.6.177.254

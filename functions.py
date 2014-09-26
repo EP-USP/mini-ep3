@@ -1,15 +1,13 @@
 import re
+import argparse
 
 
 class DNSReverser(object):
 
-    a_line = re.compile('\s+A\s+')      # get A lines
-    ip_pattern = re.compile('(\d+\.){3}\d+')        # get IPs from A lines
-    domain_pattern = re.compile('(^[^\s]+)\s+A\s+(?:\d+\.){3}(\d+)')
-    # get domain from A lines
+    a_line = re.compile('(^[^\s]+)\s+A\s+(?:\d+\.){3}(\d+)')     # get A lines
     ns_line = re.compile('\s+NS\s+')        # get NS lines
 
-    def __init__(self, text='', text_file=''):
+    def __init__(self, text_file='', text=''):
         if not text_file == '':
             f = open(text_file, 'r')
             self.direct_dns = f.readlines()
@@ -37,10 +35,13 @@ class DNSReverser(object):
     def a(self):
         a = ''
         for line in self.direct_dns:
-            match = DNSReverser.domain_pattern.search(line)
+            match = DNSReverser.a_line.search(line)
             if match:
-                a += match.group(2)+'\tPTR\t'+match.group(1)
-                a += '\n'
+                a += match.group(2).ljust(16) + \
+                    'PTR'.ljust(8) + \
+                    match.group(1) + \
+                    '\n'
+
         return a
 
     def reverse(self):
@@ -52,5 +53,25 @@ class DNSReverser(object):
 
 
 if __name__ == '__main__':
-    reverser = DNSReverser(text_file='dns.txt')
-    print(reverser.reverse())
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-f', '--file',
+                        help='Arquivo de zona DNS',
+                        default='dns.txt')
+    parser.add_argument('-o', '--output',
+                        help='Arquivo de saida para DNS reverso',
+                        default='reversed_dns.txt')
+    parser.add_argument('-p', '--print',
+                        dest='p',
+                        action='store_true',
+                        default=False,
+                        help='Print no console (default: escreve no arquivo)')
+
+    args = parser.parse_args()
+    reverser = DNSReverser(args.file)
+    rev = reverser.reverse()
+    if args.p:
+        print(rev)
+    else:
+        f = open(args.output, 'w')
+        f.write(rev)
+        f.close()

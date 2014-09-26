@@ -1,0 +1,25 @@
+$TTL 3D
+@       IN      SOA     land-5.com. root.land-5.com. (
+                        199609206       ; serial, todays date + todays serial #
+                        8H              ; refresh, seconds
+                        2H              ; retry, seconds
+                        4W              ; expire, seconds
+                        1D )            ; minimum, seconds
+
+                NS      land-5.com.
+1               	PTR	   router
+2               	PTR	   land-5.com.
+3               	PTR	   ns
+192             	PTR	   www
+2               	PTR	   funn
+200             	PTR	   ws-177200
+201             	PTR	   ws-177201
+202             	PTR	   ws-177202
+203             	PTR	   ws-177203
+204             	PTR	   ws-177204
+205             	PTR	   ws-177205
+250             	PTR	   ws-177250
+251             	PTR	   ws-177251
+252             	PTR	   ws-177252
+253             	PTR	   ws-177253
+254             	PTR	   ws-177254

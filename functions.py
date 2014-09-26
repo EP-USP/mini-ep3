@@ -1,41 +1,54 @@
 import re
 
-# Copy reader from a DNS zone file named infile to a FILE type out_file
-def copy_header(infile, out_file):
-    in_file = open(infile, 'r')
-    ns_line = re.compile('\s+NS\s+')
-    for line in in_file:
-        if ns_line.search(line):
-            in_file.close()
-            return
-        out_file.write(line)
-    in_file.close()
 
-# Copy NS lines from a DNS zone file named infile to a FILE type out_file
-def copy_ns(infile, out_file):
-    in_file = open(infile, 'r')
-    ns_line = re.compile('\s+NS\s+')
-    for line in in_file:
-        if ns_line.search(line):
-            out_file.write(line)
-    in_file.close()
+class DNSReverser(object):
 
-# Script starts here
-out_file = open('reverse_dns.txt', 'w')
+    a_line = re.compile('\s+A\s+')      # get A lines
+    ip_pattern = re.compile('(\d+\.){3}\d+')        # get IPs from A lines
+    domain_pattern = re.compile('^[^\s]+')      # get domain from A lines
+    ns_line = re.compile('\s+NS\s+')        # get NS lines
 
-a_line = re.compile('\s+A\s+') # get A lines
-ip_pattern = re.compile('(\d+\.){3}\d+') # get IPs from A lines
-domain_pattern = re.compile('^[^\s]+') # get domain from A lines
+    def __init__(self, text='', text_file=''):
+        if not text_file == '':
+            f = open(text_file, 'r')
+            self.direct_dns = f.readlines()
+            f.close()
+        else:
+            self.direct_dns = text.split('\n')
 
-copy_header('dns.txt', out_file)
-copy_ns('dns.txt', out_file)
+    # Copy reader from a DNS zone file named infile to a FILE type out_file
+    def header(self):
+        header = ''
+        for line in self.direct_dns:
+            if DNSReverser.ns_line.search(line):
+                return header
+            header += line
+        return header
 
-# Gets domain and ip from A lines (better turn it into a function)
-in_file = open('dns.txt', 'r')
-for line in in_file:
-    if a_line.search(line):
-        domain = domain_pattern.search(line)
-        ip = ip_pattern.search(line)
-        
-        print(domain.group(), end=' ')
-        print(ip.group())
+    # Copy NS lines from a DNS zone file named infile to a FILE type out_file
+    def ns(self):
+        ns = ''
+        for line in self.direct_dns:
+            if DNSReverser.ns_line.search(line):
+                ns += line
+        return ns
+
+    def a(self):
+        for line in self.direct_dns:
+            if DNSReverser.a_line.search(line):
+                domain = DNSReverser.domain_pattern.search(line)
+                ip = DNSReverser.ip_pattern.search(line)
+
+        return domain.group(0) + ' ' + ip.group(0)
+
+    def reverse(self):
+        reversed_text = ''
+        reversed_text += self.header()
+        reversed_text += self.ns()
+        reversed_text += self.a()
+        return reversed_text
+
+
+if __name__ == '__main__':
+    reverser = DNSReverser(text_file='dns.txt')
+    print(reverser.reverse())

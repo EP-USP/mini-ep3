@@ -5,7 +5,8 @@ class DNSReverser(object):
 
     a_line = re.compile('\s+A\s+')      # get A lines
     ip_pattern = re.compile('(\d+\.){3}\d+')        # get IPs from A lines
-    domain_pattern = re.compile('^[^\s]+')      # get domain from A lines
+    domain_pattern = re.compile('(^[^\s]+)\s+A\s+((\d+\.){3}\d+)')
+    # get domain from A lines
     ns_line = re.compile('\s+NS\s+')        # get NS lines
 
     def __init__(self, text='', text_file=''):
@@ -35,11 +36,10 @@ class DNSReverser(object):
 
     def a(self):
         for line in self.direct_dns:
-            if DNSReverser.a_line.search(line):
-                domain = DNSReverser.domain_pattern.search(line)
-                ip = DNSReverser.ip_pattern.search(line)
-
-        return domain.group(0) + ' ' + ip.group(0)
+            match = DNSReverser.domain_pattern.search(line)
+            if match:
+                print(match.group(1)+'\t'+match.group(2))
+        return ''
 
     def reverse(self):
         reversed_text = ''

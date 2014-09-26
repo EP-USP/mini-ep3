@@ -30,22 +30,23 @@ todays serial #\n\
         ns_test = Teste(reverser.ns(), '                NS      land-5.com.\n',
                         'ns_test')
         self.testes.append(ns_test)
-        reverse_test = Teste(reverser.a(), '1               PTR     router\n\
+        reverse_test = Teste(reverser.reversed_domains(), '1               \
+PTR     router.land-5.com.\n\
 2               PTR     land-5.com.\n\
-3               PTR     ns\n\
-192             PTR     www\n\
-2               PTR     funn\n\
-200             PTR     ws-177200\n\
-201             PTR     ws-177201\n\
-202             PTR     ws-177202\n\
-203             PTR     ws-177203\n\
-204             PTR     ws-177204\n\
-205             PTR     ws-177205\n\
-250             PTR     ws-177250\n\
-251             PTR     ws-177251\n\
-252             PTR     ws-177252\n\
-253             PTR     ws-177253\n\
-254             PTR     ws-177254\n', 'reverse_test')
+3               PTR     ns.land-5.com.\n\
+192             PTR     www.land-5.com.\n\
+2               PTR     funn.land-5.com.\n\
+200             PTR     ws-177200.land-5.com.\n\
+201             PTR     ws-177201.land-5.com.\n\
+202             PTR     ws-177202.land-5.com.\n\
+203             PTR     ws-177203.land-5.com.\n\
+204             PTR     ws-177204.land-5.com.\n\
+205             PTR     ws-177205.land-5.com.\n\
+250             PTR     ws-177250.land-5.com.\n\
+251             PTR     ws-177251.land-5.com.\n\
+252             PTR     ws-177252.land-5.com.\n\
+253             PTR     ws-177253.land-5.com.\n\
+254             PTR     ws-177254.land-5.com.\n', 'reverse_test')
         self.testes.append(reverse_test)
 
 

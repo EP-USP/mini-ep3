@@ -6,20 +6,19 @@ $TTL 3D
                         4W              ; expire, seconds
                         1D )            ; minimum, seconds
 
-                NS      land-5.com.
-1               PTR     router
+1               PTR     router.land-5.com.
 2               PTR     land-5.com.
-3               PTR     ns
-192             PTR     www
-2               PTR     funn
-200             PTR     ws-177200
-201             PTR     ws-177201
-202             PTR     ws-177202
-203             PTR     ws-177203
-204             PTR     ws-177204
-205             PTR     ws-177205
-250             PTR     ws-177250
-251             PTR     ws-177251
-252             PTR     ws-177252
-253             PTR     ws-177253
-254             PTR     ws-177254
+3               PTR     ns.land-5.com.
+192             PTR     www.land-5.com.
+2               PTR     funn.land-5.com.
+200             PTR     ws-177200.land-5.com.
+201             PTR     ws-177201.land-5.com.
+202             PTR     ws-177202.land-5.com.
+203             PTR     ws-177203.land-5.com.
+204             PTR     ws-177204.land-5.com.
+205             PTR     ws-177205.land-5.com.
+250             PTR     ws-177250.land-5.com.
+251             PTR     ws-177251.land-5.com.
+252             PTR     ws-177252.land-5.com.
+253             PTR     ws-177253.land-5.com.
+254             PTR     ws-177254.land-5.com.

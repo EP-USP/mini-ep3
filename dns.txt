@@ -5,9 +5,8 @@ $TTL 3D
                         2H              ; retry, seconds
                         4W              ; expire, seconds
                         1D )            ; minimum, seconds
-                        
+
                 NS      land-5.com.
-localhost       A       127.0.0.1
 router          A       206.6.177.1
 land-5.com.     A       206.6.177.2
 ns              A       206.6.177.3
